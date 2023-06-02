@@ -15,6 +15,7 @@
       background-color: #ffffff;
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
+      text-align: center;
     }
 
     h1 {
@@ -59,79 +60,44 @@
 
     .input-field {
       flex: 1;
-      padding: 5px;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-field:focus {
+      border-color: #2196F3;
     }
 
     .submit-button {
+      padding: 10px 20px;
+      font-size: 16px;
       background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
     }
 
     .submit-button:hover {
       background-color: #0F8BDD;
     }
+
+    .container {
+      text-align: center;
+    }
+
+    .container > button {
+      margin-top: 10px;
+    }
   </style>
   <script>
-    let count = parseFloat(localStorage.getItem('count')) || 0;
-
-    function incrementCount(value) {
-      count += value;
-      saveCount();
-      updateCount();
-    }
-
-    function resetCount() {
-      if (confirm('Are you sure you want to reset?')) {
-        count = 0;
-        saveCount();
-        updateCount();
-      }
-    }
-
-    function saveCount() {
-      localStorage.setItem('count', count);
-    }
-
-    function updateCount() {
-      const countDisplay = document.getElementById('count');
-      countDisplay.textContent = '$' + count.toFixed(2);
-    }
-
-    window.onload = updateCount;
-
-    document.addEventListener('keydown', function(event) {
-      // Check if the focus is on the input field
-      const inputField = document.getElementById('customAmount');
-      if (document.activeElement !== inputField) {
-        switch (event.key) {
-          case '1':
-            incrementCount(2.50);
-            break;
-          case '2':
-            incrementCount(1.25);
-            break;
-          case '3':
-            incrementCount(2);
-            break;
-          case '4':
-            incrementCount(1);
-            break;
-          case '0':
-            resetCount();
-            break;
-          default:
-            break;
-        }
-      }
-    });
-
-    function addCustomAmount() {
-      const inputField = document.getElementById('customAmount');
-      const amount = parseFloat(inputField.value);
-      if (!isNaN(amount)) {
-        incrementCount(amount);
-        inputField.value = '';
-      }
-    }
+    // JavaScript code...
   </script>
 </head>
 <body>
