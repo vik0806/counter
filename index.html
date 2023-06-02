@@ -97,17 +97,72 @@
     }
   </style>
   <script>
-    // JavaScript code...
+    // Retrieve count from localStorage if available
+    let count = parseFloat(localStorage.getItem('count')) || 0;
+
+    // Function to increment count with a specific value
+    function incrementCount(value) {
+      count += value;
+      saveCount();
+      updateCount();
+    }
+
+    // Function to reset count to zero
+    function resetCount() {
+      if (confirm('Are you sure you want to reset?')) {
+        count = 0;
+        saveCount();
+        updateCount();
+      }
+    }
+
+    // Function to save count to localStorage
+    function saveCount() {
+      localStorage.setItem('count', count);
+    }
+
+    // Function to update count display
+    function updateCount() {
+      const countDisplay = document.getElementById('count');
+      countDisplay.textContent = '$' + count.toFixed(2);
+    }
+
+    // Initialize count display on page load
+    window.onload = function() {
+      updateCount();
+
+      // Add event listeners to buttons
+      const buttons = document.querySelectorAll('.button');
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+          const value = parseFloat(this.dataset.value);
+          incrementCount(value);
+        });
+      });
+
+      // Add event listener to reset button
+      const resetButton = document.querySelector('.reset-button');
+      resetButton.addEventListener('click', resetCount);
+    }
+
+    function addCustomAmount() {
+      const inputField = document.getElementById('customAmount');
+      const amount = parseFloat(inputField.value);
+      if (!isNaN(amount)) {
+        incrementCount(amount);
+        inputField.value = '';
+      }
+    }
   </script>
 </head>
 <body>
   <div class="container">
     <h1>Money</h1>
     <p class="count">Count: <span id="count">$0.00</span></p>
-    <button class="button" onclick="incrementCount(2.50)">Increment by $2.50</button>
-    <button class="button" onclick="incrementCount(1.25)">Increment by $1.25</button>
-    <button class="button" onclick="incrementCount(1)">Increment by $1</button>
-    <button class="button" onclick="incrementCount(2)">Increment by $2</button>
+    <button class="button" data-value="2.50">Increment by $2.50</button>
+    <button class="button" data-value="1.25">Increment by $1.25</button>
+    <button class="button" data-value="1">Increment by $1</button>
+    <button class="button" data-value="2">Increment by $2</button>
     <div class="input-container">
       <input type="number" step="0.01" class="input-field" id="customAmount" placeholder="Enter amount">
       <button class="button submit-button" onclick="addCustomAmount()">Add</button>
