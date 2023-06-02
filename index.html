@@ -51,71 +51,87 @@
     .reset-button:hover {
       background-color: #d32f2f;
     }
+
+    .input-container {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .input-field {
+      flex: 1;
+      padding: 5px;
+    }
+
+    .submit-button {
+      background-color: #2196F3;
+    }
+
+    .submit-button:hover {
+      background-color: #0F8BDD;
+    }
   </style>
   <script>
-    // Retrieve count from localStorage if available
     let count = parseFloat(localStorage.getItem('count')) || 0;
 
-    // Function to increment count with a specific value
     function incrementCount(value) {
       count += value;
       saveCount();
       updateCount();
     }
 
-    // Function to reset count to zero
     function resetCount() {
-      count = 0;
-      saveCount();
-      updateCount();
+      if (confirm('Are you sure you want to reset?')) {
+        count = 0;
+        saveCount();
+        updateCount();
+      }
     }
 
-    // Function to save count to localStorage
     function saveCount() {
       localStorage.setItem('count', count);
     }
 
-    // Function to update count display
     function updateCount() {
       const countDisplay = document.getElementById('count');
       countDisplay.textContent = '$' + count.toFixed(2);
     }
 
-    // Function to reset count to zero
-
-function resetCount() {
-  if (confirm('Are you sure you want to reset?')) {
-    count = 0;
-    saveCount();
-    updateCount();
-  }
-}
-
-    // Initialize count display on page load
     window.onload = updateCount;
 
-    // Keydown event listener for keybinds
     document.addEventListener('keydown', function(event) {
-      switch (event.key) {
-        case '1':
-          incrementCount(2.50);
-          break;
-        case '2':
-          incrementCount(1.25);
-          break;
-        case '3':
-          incrementCount(2);
-          break;
-        case '4':
-          incrementCount(1);
-          break;
-        case '0':
-          resetCount();
-          break;
-        default:
-          break;
+      // Check if the focus is on the input field
+      const inputField = document.getElementById('customAmount');
+      if (document.activeElement !== inputField) {
+        switch (event.key) {
+          case '1':
+            incrementCount(2.50);
+            break;
+          case '2':
+            incrementCount(1.25);
+            break;
+          case '3':
+            incrementCount(2);
+            break;
+          case '4':
+            incrementCount(1);
+            break;
+          case '0':
+            resetCount();
+            break;
+          default:
+            break;
+        }
       }
     });
+
+    function addCustomAmount() {
+      const inputField = document.getElementById('customAmount');
+      const amount = parseFloat(inputField.value);
+      if (!isNaN(amount)) {
+        incrementCount(amount);
+        inputField.value = '';
+      }
+    }
   </script>
 </head>
 <body>
@@ -126,8 +142,11 @@ function resetCount() {
     <button class="button" onclick="incrementCount(1.25)">Increment by $1.25</button>
     <button class="button" onclick="incrementCount(1)">Increment by $1</button>
     <button class="button" onclick="incrementCount(2)">Increment by $2</button>
+    <div class="input-container">
+      <input type="number" step="0.01" class="input-field" id="customAmount" placeholder="Enter amount">
+      <button class="button submit-button" onclick="addCustomAmount()">Add</button>
+    </div>
     <button class="button reset-button" onclick="resetCount()">Reset</button>
-  
   </div>
 </body>
 </html>
