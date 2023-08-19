@@ -45,6 +45,21 @@
       background-color: #45a049;
     }
 
+    .sub-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .sub-button:hover {
+      background-color: #d32f2f;
+    }
+
     .reset-button {
       background-color: #f44336;
     }
@@ -95,6 +110,13 @@
       updateCount();
     }
 
+    // Function to decrement count with a specific value
+    function decrementCount(value) {
+      count -= value;
+      saveCount();
+      updateCount();
+    }
+
     // Function to reset count to zero
     function resetCount() {
       if (confirm('Are you sure you want to reset?')) {
@@ -127,6 +149,15 @@
           incrementCount(value);
         });
       });
+
+      // Add event listeners to subtract buttons
+      const subButtons = document.querySelectorAll('.sub-button');
+      subButtons.forEach(subButton => {
+        subButton.addEventListener('click', function() {
+          const value = parseFloat(this.dataset.value);
+          decrementCount(value);
+        });
+      });
     }
 
     // Keydown event listener for keybinds
@@ -136,16 +167,28 @@
           incrementCount(3);
           break;
         case '2':
-          incrementCount(2);
+          incrementCount(2.50);
           break;
         case '3':
           incrementCount(1.25);
           break;
         case '4':
-          incrementCount(4);
+          incrementCount(2);
           break;
         case '5':
-          incrementCount(5);
+          incrementCount(1);
+          break;
+        case '6':
+          incrementCount(1.5);
+          break;
+        case '7':
+          decrementCount(3);
+          break;
+        case '8':
+          decrementCount(2.50);
+          break;
+        case '9':
+          decrementCount(1.25);
           break;
         case '0':
           resetCount();
@@ -161,10 +204,18 @@
     <h1>Money</h1>
     <p class="count">Count: <span id="count">$0.00</span></p>
     <button class="button" data-value="3">Increment by $3</button>
-    <button class="button" data-value="2">Increment by $2</button>
+    <button class="button" data-value="2.50">Increment by $2.50</button>
     <button class="button" data-value="1.25">Increment by $1.25</button>
-    <button class="button" data-value="4">Increment by $4</button>
-    <button class="button" data-value="5">Increment by $5</button>
+    <button class="button" data-value="2">Increment by $2</button>
+    <button class="button" data-value="1">Increment by $1</button>
+    <button class="button" data-value="1.5">Increment by $1.50</button>
+    <br>
+    <button class="sub-button" data-value="3">Subtract by $3</button>
+    <button class="sub-button" data-value="2.50">Subtract by $2.50</button>
+    <button class="sub-button" data-value="1.25">Subtract by $1.25</button>
+    <button class="sub-button" data-value="2">Subtract by $2</button>
+    <button class="sub-button" data-value="1">Subtract by $1</button>
+    <button class="sub-button" data-value="1.5">Subtract by $1.50</button>
     <button class="button reset-button" onclick="resetCount()">Reset</button>
   </div>
 </body>
