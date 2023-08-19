@@ -133,16 +133,19 @@
     document.addEventListener('keydown', function(event) {
       switch (event.key) {
         case '1':
-          incrementCount(2.50);
+          incrementCount(3);
           break;
         case '2':
-          incrementCount(1.25);
-          break;
-        case '3':
           incrementCount(2);
           break;
+        case '3':
+          incrementCount(1.25);
+          break;
         case '4':
-          incrementCount(1);
+          incrementCount(4);
+          break;
+        case '5':
+          incrementCount(5);
           break;
         case '0':
           resetCount();
@@ -157,10 +160,11 @@
   <div class="container">
     <h1>Money</h1>
     <p class="count">Count: <span id="count">$0.00</span></p>
-    <button class="button" data-value="2.50">Increment by $2.50</button>
-    <button class="button" data-value="1.25">Increment by $1.25</button>
+    <button class="button" data-value="3">Increment by $3</button>
     <button class="button" data-value="2">Increment by $2</button>
-    <button class="button" data-value="1">Increment by $1</button>
+    <button class="button" data-value="1.25">Increment by $1.25</button>
+    <button class="button" data-value="4">Increment by $4</button>
+    <button class="button" data-value="5">Increment by $5</button>
     <button class="button reset-button" onclick="resetCount()">Reset</button>
   </div>
 </body>
